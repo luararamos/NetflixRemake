@@ -5,10 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:src="@drawable/ic_play"
+        android:id="@+id/img_cover"
+        android:src="@drawable/movie_4"
         android:layout_width="match_parent"
-        android:layout_height=""
-
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="9:16"
+        android:layout_height="0dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,16 +14,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val movies = mutableListOf<Movie>()
-        for(i in 0 until 60){
-            val movie = Movie("htps://exemplo.com/$i.jpg")
+        for(i in 0 until 5){
+            val movie = Movie(R.drawable.movie_4)
             movies.add(movie)
 
         }
 
         val adapter = MainAdapter(movies)
         val rv: RecyclerView = findViewById(R.id.rv_main)
-        rv.layoutManager = LinearLayoutManager(this)
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         rv.adapter = adapter
     }
 }
