@@ -2,9 +2,9 @@ package co.tiagoaguiar.netflixremake.util
 
 import android.util.Log
 import java.io.IOException
-import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
+import javax.net.ssl.HttpsURLConnection
 
 class CategoryTask {
     fun execute(url: String) {
@@ -16,7 +16,7 @@ class CategoryTask {
             try {
                 val requestURL = URL(url) // abrir uma URL
                 val urlConnection =
-                    requestURL.openConnection() as HttpURLConnection //abrir a conexão
+                    requestURL.openConnection() as HttpsURLConnection //abrir a conexão
                 urlConnection.readTimeout = 2000 //tempo leitura (2s)
                 urlConnection.connectTimeout = 2000 // tempo conexão (2s)
 
@@ -31,7 +31,8 @@ class CategoryTask {
 
                 // forma2: ???
 
-            } catch (e: IOException ) {
+
+            } catch (e: IOException) {
                 Log.e("Teste", e.message ?: "erro desconhecido", e)
 
             }
