@@ -44,10 +44,7 @@ class MovieActivity : AppCompatActivity() {
         coverImg.setImageDrawable(layerDrawable)
 
         val movies = mutableListOf<Movie>()
-        for (i in 0 until 15){
-            val movie = Movie(R.drawable.movie_4)
-            movies.add(movie)
-        }
+
 
         binding.movieRvSimilar.layoutManager = GridLayoutManager(this, 3)
         binding.movieRvSimilar.adapter = MovieAdapter(movies, R.layout.movie_item_similar)
