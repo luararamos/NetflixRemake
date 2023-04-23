@@ -11,18 +11,16 @@ class CategoryTask {
         // nesse momento, estamos utilizando a UI-thread (1)
         val executor = Executors.newSingleThreadExecutor()
         executor.execute {
+            // nesse momento, estamos utilizando a NOVA-thread [processo paralelo] (2)
+            //>>>>>>>AQUI é um código meio que PADRAO<<<<<<
             try {
-
-
-                // nesse momento, estamos utilizando a NOVA-thread [processo paralelo] (2)
-                //>>>>>>>AQUI é um código meio que PADRAO<<<<<<
                 val requestURL = URL(url) // abrir uma URL
                 val urlConnection =
                     requestURL.openConnection() as HttpURLConnection //abrir a conexão
                 urlConnection.readTimeout = 2000 //tempo leitura (2s)
                 urlConnection.connectTimeout = 2000 // tempo conexão (2s)
 
-                val statusCode: Int = urlConnection.responseCode
+                val statusCode: Int = urlConnection.responseCode //statusCode 202/404...
                 if (statusCode > 400) {
                     throw IOException("Erro na comunicação com o servidor")
                 }
@@ -37,6 +35,7 @@ class CategoryTask {
                 Log.e("Teste", e.message ?: "erro desconhecido", e)
 
             }
+            //>>>>>>>AQUI é um código meio que PADRAO<<<<<<
 
         }
     }

@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv.adapter = adapter
 
-        CategoryTask().execute("f47cbd00-e981-4b94-a66f-8f8ee06e8314")
+        CategoryTask().execute("https://api.tiagoaguiar.co/netflixapp/home?apiKey=f47cbd00-e981-4b94-a66f-8f8ee06e8314")
     }
 }
