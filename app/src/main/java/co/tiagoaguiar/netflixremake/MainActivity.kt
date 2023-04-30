@@ -14,6 +14,8 @@ import co.tiagoaguiar.netflixremake.util.CategoryTask
 
 class MainActivity : AppCompatActivity(), CategoryTask.Callback {
 
+    private val categories = mutableListOf<Category>()
+    private lateinit var adapter: CategoryAdapter
     private lateinit var progress: ProgressBar
 
     // m-v-c (model - [view/controller] activity)
@@ -23,9 +25,7 @@ class MainActivity : AppCompatActivity(), CategoryTask.Callback {
 
         progress = findViewById(R.id.progress_main)
 
-        val categories = mutableListOf<Category>()
-
-        val adapter = CategoryAdapter(categories)
+        adapter = CategoryAdapter(categories)
         val rv: RecyclerView = findViewById(R.id.rv_main)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv.adapter = adapter
@@ -40,7 +40,9 @@ class MainActivity : AppCompatActivity(), CategoryTask.Callback {
     override fun onResult(categories: List<Category>) {
         //  aqui será quando o CategoryTask chamará de volta
         //  (callback) - listener
-        Log.i("Teste MainActivity", categories.toString())
+        this.categories.clear()
+        this.categories.addAll(categories)
+        adapter.notifyDataSetChanged() // força o adapter a chamar de novo o onBindViewHolder, etc
         progress.visibility = View.GONE
     }
 

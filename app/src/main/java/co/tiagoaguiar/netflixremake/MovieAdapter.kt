@@ -1,5 +1,6 @@
 package co.tiagoaguiar.netflixremake
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.netflixremake.model.Movie
+import co.tiagoaguiar.netflixremake.util.DowloadImageTask
+import com.squareup.picasso.Picasso
 
 // Aqui é a lista HORIZONTAL
 class MovieAdapter(
@@ -31,9 +34,14 @@ class MovieAdapter(
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(movie: Movie) {
             val imageCover: ImageView = itemView.findViewById(R.id.img_cover)
-
-            // TODO: aqui vai ser trocado por uma URL que virá do servidor
-            // imageCover.setImageResource(movie.coverUrl)
+            DowloadImageTask(object : DowloadImageTask.Callback{
+                override fun onResult(bitmap: Bitmap) {
+                    imageCover.setImageBitmap(bitmap)
+                }
+            }).execute(movie.coverUrl)
+//            Picasso.get()
+//                .load(movie.coverUrl)
+//                .into(imageCover)
         }
     }
 }
