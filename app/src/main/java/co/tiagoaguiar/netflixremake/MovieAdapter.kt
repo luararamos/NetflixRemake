@@ -9,17 +9,17 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.netflixremake.model.Movie
 import co.tiagoaguiar.netflixremake.util.DowloadImageTask
-import com.squareup.picasso.Picasso
 
 // Aqui é a lista HORIZONTAL
 class MovieAdapter(
     private val movies: List<Movie>,
-    @LayoutRes private val layoutId: Int
-    ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+    @LayoutRes private val layoutId: Int,
+    private val onItemClickListener: ((Int) -> Unit)? = null
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_item, parent, false)
-        return  MovieViewHolder(view)
+            .inflate(layoutId, parent, false)
+        return MovieViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -31,10 +31,13 @@ class MovieAdapter(
         return movies.size
     }
 
-    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie) {
             val imageCover: ImageView = itemView.findViewById(R.id.img_cover)
-            DowloadImageTask(object : DowloadImageTask.Callback{
+            imageCover.setOnClickListener {
+                onItemClickListener?.invoke(movie.id)
+            }
+            DowloadImageTask(object : DowloadImageTask.Callback {
                 override fun onResult(bitmap: Bitmap) {
                     imageCover.setImageBitmap(bitmap)
                 }
