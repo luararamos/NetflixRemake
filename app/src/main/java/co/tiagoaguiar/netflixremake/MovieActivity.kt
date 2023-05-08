@@ -2,6 +2,7 @@ package co.tiagoaguiar.netflixremake
 
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +11,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import co.tiagoaguiar.netflixremake.databinding.ActivityMovieBinding
 import co.tiagoaguiar.netflixremake.model.Movie
+import co.tiagoaguiar.netflixremake.model.MovieDetail
+import co.tiagoaguiar.netflixremake.util.MovieTask
 
-class MovieActivity : AppCompatActivity() {
+class MovieActivity : AppCompatActivity(), MovieTask.Callback {
 
     lateinit var binding: ActivityMovieBinding
 
@@ -19,6 +22,14 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val id =
+            intent?.getIntExtra("id", 0) ?: throw IllegalStateException("ID não foi encontrado")
+
+        val url =
+            "https://api.tiagoaguiar.co/netflixapp/movie/$id?apiKey=f47cbd00-e981-4b94-a66f-8f8ee06e8314"
+
+        MovieTask(this).execute(url)
 
         binding.movieTxtTitle.text = "Batman Begins"
         binding.movieTxtDesc.text = "Essa é a descrição do filme do Batman"
@@ -52,8 +63,18 @@ class MovieActivity : AppCompatActivity() {
         binding.movieRvSimilar.adapter = MovieAdapter(movies, R.layout.movie_item_similar)
     }
 
+    override fun onPreExecute() {
+    }
+
+    override fun onFailure(message: String) {
+    }
+
+    override fun onResult(movieDetail: MovieDetail) {
+        Log.i("Teste", movieDetail.toString())
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
+        if (item.itemId == android.R.id.home) {
             finish()
         }
         return super.onOptionsItemSelected(item)
