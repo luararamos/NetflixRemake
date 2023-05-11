@@ -96,7 +96,7 @@ class CategoryTask(private val callback: Callback) {
                 val id = jsonMovie.getInt("id")
                 val coverUrl = jsonMovie.getString("cover_url")
 
-                movies.add(Movie(id, coverUrl))
+                movies.add(Movie(id, coverUrl, "", "",""))
             }
 
             categories.add(Category(title, movies))
