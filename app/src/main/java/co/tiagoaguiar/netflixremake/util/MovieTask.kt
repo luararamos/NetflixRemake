@@ -43,7 +43,11 @@ class MovieTask(private val callback: Callback) {
                     stream = urlConnection.errorStream
                     buffer = BufferedInputStream(stream)
                     val jsonAsString = toString(buffer)
-                    // aqui eu já tenho o JSON
+
+                    val json = JSONObject(jsonAsString)
+                    val message = json.getString("message")
+                    throw IOException(message)
+
                 } else if (statusCode > 400) {
                     throw IOException("Erro na comunicação com o servidor!")
                 }
