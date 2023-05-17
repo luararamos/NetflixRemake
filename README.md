@@ -10,8 +10,9 @@ The following tools were used in building the project:
 - Androidx
  
 # Author
-![lise-png](https://github.com/luararamos/NetflixRemake/assets/35637366/71ad5a7f-aec7-409d-8bae-2ee3a32ca880)
 
+<img width= "80px" height="80px" src = "https://github.com/luararamos/NetflixRemake/assets/35637366/a7aa35cc-bbd2-457e-b738-19c39ba89011">
+</br>
 <a href="https://www.linkedin.com/in/luararamos-desenvolvedor-android/">
  <sub><b>Luara Ramos (Lise)</b></sub></a> 
 
